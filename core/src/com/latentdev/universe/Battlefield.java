@@ -16,30 +16,35 @@ public class Battlefield implements ProtoLevel {
     private int Hero;
     SpriteBatch batch;
     Music Theme;
-    private float speed_x;
+    float speed_x;
     private float speed_y;
-    private float scale_width;
-    private float scale_height;
+    float scale_width;
+    float scale_height;
+    float distance;
+    float char_rotation;
 
     public Battlefield(SpriteBatch in_batch)
     {
         batch=in_batch;
         Hero= 3;
-        speed_x=10;
+        speed_x=50;
         speed_y=0;
-        scale_width=(float)(Gdx.graphics.getWidth())/2560;
-        scale_height=(float)(Gdx.graphics.getHeight())/1440;
+        //scale_width=(float)(Gdx.graphics.getWidth())/(float)2560;
+        scale_height=(float)(Gdx.graphics.getHeight())/(float)1440;
+        scale_width=scale_height;
+        distance=0;
+        char_rotation=0;
 
         character = new Entity[2];
-        character[0] = new Entity(256,256,0,0,"steven-256.png");
-        character[1] = new Entity(256,256,0,0,"bubble-256.png");
+        character[0] = new Entity(256*scale_width,1440*scale_height,0,0,"steven-256.png");
+        character[1] = new Entity(256*scale_width,1440*scale_height,0,0,"bubble-256.png");
         level= new Entity[7];
         level[2]= new Entity(0,0,0,speed_x,"Battleground.png");
         level[0]= new Entity(0,0,0,(float)(level[2].GetSpeed()*.25),"sky.png");
         level[1]= new Entity(0,0,0,(float)(level[2].GetSpeed()*.5),"clouds.png");
-        level[3]= new Entity(3072,0,0,(float)(speed_x*1.5),"Hammer.png");
-        level[4]= new Entity(1024,0,0,(float)(speed_x*1.5),"Sword.png");
-        level[5]= new Entity(2048,0,0,(float)(speed_x*1.5),"hatchet.png");
+        level[3]= new Entity(3072*scale_width,0,0,(float)(speed_x*1.5),"Hammer.png");
+        level[4]= new Entity(1024*scale_width,0,0,(float)(speed_x*1.5),"Sword.png");
+        level[5]= new Entity(2048*scale_width,0,0,(float)(speed_x*1.5),"hatchet.png");
         level[6]= new Entity(0,0,0,speed_x*2,"Foreground.png");
 
         tools= new Entity[3];
@@ -59,13 +64,13 @@ public class Battlefield implements ProtoLevel {
             {
                 for (int k=0;k<character.length;k++)
                 {
-                    batch.draw(character[k].tex,character[k].GetX(),character[k].GetY(),character[k].GetWidth()/2,character[k].GetHeight()/2,character[k].GetWidth(),character[k].GetHeight(),scale_width,scale_height,character[k].GetRotation(),0,0,character[k].GetWidth(),character[k].GetHeight(),false,false);
+                    batch.draw(character[k].tex,character[k].GetX(),character[k].GetY(),character[k].GetWidth()/2,character[k].GetHeight()/2,character[k].GetWidth(),character[k].GetHeight(),scale_width,scale_height,character[k].SetRotation(character[k].GetRotation()-char_rotation),0,0,character[k].GetWidth(),character[k].GetHeight(),false,false);
                 }
             }
-            batch.draw(level[i].tex, level[i].GetX(), level[i].GetY());
-            batch.draw(level[i].tex, level[i].GetX() + 5120, level[i].GetY());
+            batch.draw(level[i].tex,level[i].GetX(),level[i].GetY(),0,0,level[i].GetWidth(),level[i].GetHeight(),scale_width,scale_height,level[i].GetRotation(),0,0,level[i].GetWidth(),level[i].GetHeight(),false,false);
+            batch.draw(level[i].tex, level[i].GetX() + (5120*scale_width), level[i].GetY(),0,0,level[i].GetWidth(),level[i].GetHeight(),scale_width,scale_height,level[i].GetRotation(),0,0,level[i].GetWidth(),level[i].GetHeight(),false,false);
             level[i].SetX(level[i].GetX()-level[i].GetSpeed());
-            if (level[i].GetX() < -5120) {
+            if (level[i].GetX() < (-1*(5120*scale_width))) {
                 level[i].SetX(0);
             }
 
@@ -77,10 +82,15 @@ public class Battlefield implements ProtoLevel {
     public void Update(float in_speed_x)
     {
         speed_x=in_speed_x;
-        for (int i=0;i<level.length;i++)
-        {
-            level[i].SetSpeed(speed_x);
-        }
+        level[0].SetSpeed(speed_x*(float).25);
+        level[1].SetSpeed(speed_x * (float) .5);
+        level[2].SetSpeed(speed_x);
+        level[3].SetSpeed(speed_x * (float) 1.5);
+        level[4].SetSpeed(speed_x * (float) 1.5);
+        level[5].SetSpeed(speed_x * (float) 1.5);
+        level[6].SetSpeed(speed_x*(float)2);
+        distance+=speed_x;
+
     }
 
     public void PlayMusic()
@@ -106,6 +116,11 @@ public class Battlefield implements ProtoLevel {
     public Entity [] GetLevel()
     {
         return level;
+    }
+
+    public void SetSpeedX(float in_speed)
+    {
+        speed_x=in_speed;
     }
 
 

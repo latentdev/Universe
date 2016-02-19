@@ -11,6 +11,7 @@ public class Entity {
     private int width;
     private int height;
     Texture tex;
+    BBox bbox;
 
     public Entity(float in_x, float in_y, float in_rotation, float in_speed, String file) {
         x = in_x;
@@ -20,6 +21,7 @@ public class Entity {
         speed = in_speed;
         width = tex.getWidth();
         height = tex.getHeight();
+        bbox = new BBox(x,y,(float)width,(float)height);
 
     }
 
@@ -63,9 +65,10 @@ public class Entity {
         speed=in_speed;
     }
 
-    public void SetRotation(float in_rotation)
+    public float SetRotation(float in_rotation)
     {
         rotation=in_rotation;
+        return rotation;
     }
 
 }

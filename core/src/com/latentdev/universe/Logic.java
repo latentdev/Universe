@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class Logic {
 
-    ProtoLevel level;
+    Battlefield level;
     Controls controls;
     Physics physics;
 
@@ -16,7 +16,7 @@ public class Logic {
         level = new Battlefield(in_batch);
         controls = new Controls();
         physics = new Physics(level);
-        level.PlayMusic();
+        //level.PlayMusic();
     }
 
     void Measure()
@@ -26,8 +26,9 @@ public class Logic {
 
     public void Loop()
     {
-        level.Update(10);
+        level.Update(physics.GetSpeed());
         level.DrawLevel();
+        physics.physics();
     }
 
 }
