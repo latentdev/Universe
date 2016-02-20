@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Battlefield implements ProtoLevel {
 
     private Entity [] level;
+    Entity [] player;
     Entity [] character;
     Entity [] tools;
     private int Hero;
@@ -35,9 +36,17 @@ public class Battlefield implements ProtoLevel {
         distance=0;
         char_rotation=0;
 
-        character = new Entity[2];
-        character[0] = new Entity(256*scale_width,1440*scale_height,0,0,"steven-256.png");
-        character[1] = new Entity(256*scale_width,1440*scale_height,0,0,"bubble-256.png");
+        player = new Entity[2];
+        player[0] = new Entity(256*scale_width,1440*scale_height,0,0,"steven-256.png");
+        player[1] = new Entity(256*scale_width,1440*scale_height,0,0,"bubble-256.png");
+        character = new Entity[8];
+        int offset=0;
+        for (int i=0; i<character.length; i++)
+        {
+            character[i] = new Entity((512*scale_width)+(offset*scale_width),256*scale_height,0,0,"steven-256.png");
+            offset+=1200*scale_width;
+        }
+
         level= new Entity[7];
         level[2]= new Entity(0,0,0,speed_x,"Battleground.png");
         level[0]= new Entity(0,0,0,(float)(level[2].GetSpeed()*.25),"sky.png");
@@ -62,9 +71,14 @@ public class Battlefield implements ProtoLevel {
         {
             if (i==Hero)
             {
-                for (int k=0;k<character.length;k++)
+                for (int k=0;k< player.length;k++)
                 {
-                    batch.draw(character[k].tex,character[k].GetX(),character[k].GetY(),character[k].GetWidth()/2,character[k].GetHeight()/2,character[k].GetWidth(),character[k].GetHeight(),scale_width,scale_height,character[k].SetRotation(character[k].GetRotation()-char_rotation),0,0,character[k].GetWidth(),character[k].GetHeight(),false,false);
+                    batch.draw(player[k].tex, player[k].GetX(), player[k].GetY(), player[k].GetWidth()/2, player[k].GetHeight()/2, player[k].GetWidth(), player[k].GetHeight(),scale_width,scale_height, player[k].SetRotation(player[k].GetRotation()-char_rotation),0,0, player[k].GetWidth(), player[k].GetHeight(),false,false);
+                }
+
+                for (int m=0;m<character.length;m++)
+                {
+                    batch.draw(character[m].tex, character[m].GetX(), character[m].GetY(), character[m].GetWidth()/2, character[m].GetHeight()/2, character[m].GetWidth(), character[m].GetHeight(),scale_width,scale_height, character[m].GetRotation(),0,0, character[m].GetWidth(), character[m].GetHeight(),false,false);
                 }
             }
             batch.draw(level[i].tex,level[i].GetX(),level[i].GetY(),0,0,level[i].GetWidth(),level[i].GetHeight(),scale_width,scale_height,level[i].GetRotation(),0,0,level[i].GetWidth(),level[i].GetHeight(),false,false);
@@ -76,7 +90,7 @@ public class Battlefield implements ProtoLevel {
 
         }
         for (int m=0;m<3;m++)
-            batch.draw(tools[m].tex,tools[m].GetX(),tools[m].GetY());
+            batch.draw(tools[m].tex, tools[m].GetX(), tools[m].GetY());
     }
 
     public void Update(float in_speed_x)
@@ -89,6 +103,10 @@ public class Battlefield implements ProtoLevel {
         level[4].SetSpeed(speed_x * (float) 1.5);
         level[5].SetSpeed(speed_x * (float) 1.5);
         level[6].SetSpeed(speed_x*(float)2);
+        for (int i=0;i<character.length;i++)
+        {
+            character[i].SetSpeed(speed_x);
+        }
         distance+=speed_x;
 
     }

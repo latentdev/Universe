@@ -23,6 +23,7 @@ public class Universe extends ApplicationAdapter {
 		layout = new GlyphLayout();
 		font.setColor(Color.WHITE);
 		font.getData().setScale(4*logic.level.scale_width);
+		//config.fullscreen = true;
 	}
 
 	@Override
