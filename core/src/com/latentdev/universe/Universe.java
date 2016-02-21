@@ -35,7 +35,7 @@ public class Universe extends ApplicationAdapter {
 		layout.setText(font,Distance);
 		logic.Loop();
 		
-		//font.draw(batch, Gdx.graphics.getWidth() + " pixels", 10, Gdx.graphics.getHeight() - 10);
+		font.draw(batch, logic.level.character[0].GetWidth() + " pixels", 10, Gdx.graphics.getHeight() - 10);
 		font.draw(batch, String.format("%.2f",logic.level.distance/(256*logic.level.scale_width)) + " meters", Gdx.graphics.getWidth()-layout.width-10, Gdx.graphics.getHeight() - 10);
 		//font.draw(batch, Gdx.graphics.getHeight() + " pixels", 10, Gdx.graphics.getHeight() - 80);
 		//font.draw(batch, (Gdx.graphics.getWidth()/(float)2560)+" width ratio",10,Gdx.graphics.getHeight()-160);

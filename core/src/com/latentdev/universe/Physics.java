@@ -25,11 +25,11 @@ public class Physics {
         level.player[0].SetY(level.player[0].GetY() + (float) vy);
         level.player[1].SetY(level.player[1].GetY() + (float) vy);
 
-        if (level.player[0].GetY()<256*level.scale_height)
+        if (level.player[0].GetY()<400*level.scale_height)
         {
             vy*=-0.9;
-            level.player[0].SetY(256*level.scale_height);
-            level.player[1].SetY(256*level.scale_height);
+            level.player[0].SetY(400*level.scale_height);
+            level.player[1].SetY(400*level.scale_height);
             level.char_rotation=speed*(float)0.25;
             speed-=vx;
             if (speed<0)
