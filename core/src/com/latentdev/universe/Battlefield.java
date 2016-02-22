@@ -44,7 +44,7 @@ public class Battlefield implements ProtoLevel {
         for (int i=0; i<character.length; i++)
         {
             character[i] = new Entity((800*scale_width)+(offset*scale_width),400*scale_height,0,0,"steven-256.png");
-            offset+=(Gdx.graphics.getWidth()-(800*scale_width))/3;
+            offset+=(Gdx.graphics.getWidth()-(800*(Gdx.graphics.getWidth()/(float)2560)))/3;
         }
 
         level= new Entity[7];
