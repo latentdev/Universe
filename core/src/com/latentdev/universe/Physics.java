@@ -11,8 +11,8 @@ public class Physics {
 
     Physics(Battlefield in_level)
     {
-        g = 0.3;
-        vx = 1;
+        g = 25;
+        vx = 3;
         vy = 0;
         level = in_level;
         speed = level.GetSpeedX();
@@ -22,15 +22,15 @@ public class Physics {
     {
         vy -= g;
 
-        level.player[0].SetY(level.player[0].GetY() + (float) vy);
-        level.player[1].SetY(level.player[1].GetY() + (float) vy);
+        level.player[0].SetY(level.player[0].GetY() + (float) vy*level.dt);
+        level.player[1].SetY(level.player[1].GetY() + (float) vy*level.dt);
 
         if (level.player[0].GetY()<400*level.scale_height)
         {
             vy*=-0.9;
             level.player[0].SetY(400*level.scale_height);
             level.player[1].SetY(400*level.scale_height);
-            level.char_rotation=speed*(float)0.25;
+            level.char_rotation=speed*(float)0.25*level.dt;
             speed-=vx;
             if (speed<0)
             {
