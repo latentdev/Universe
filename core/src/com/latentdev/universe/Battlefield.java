@@ -24,14 +24,21 @@ public class Battlefield implements ProtoLevel {
     float distance;
     float char_rotation;
     float dt;
+<<<<<<< HEAD
     float scale;
     float increment;
+=======
+>>>>>>> origin/master
 
     public Battlefield(SpriteBatch in_batch)
     {
         batch=in_batch;
         Hero= 3;
+<<<<<<< HEAD
         speed_x=0; //forward character movement
+=======
+        speed_x=3000;
+>>>>>>> origin/master
         speed_y=0;
         //scale_width=(float)(Gdx.graphics.getWidth())/(float)2560;
         scale_height=(float)(Gdx.graphics.getHeight())/(float)1440;
@@ -96,8 +103,14 @@ public class Battlefield implements ProtoLevel {
             }
 
         }
+<<<<<<< HEAD
         Animate_Tools();
         }
+=======
+        for (int m=0;m<3;m++)
+            batch.draw(tools[m].tex, tools[m].GetX(), tools[m].GetY(),0,0,tools[m].GetWidth(),tools[m].GetHeight(),scale_width,scale_height,tools[m].GetRotation(),0,0,tools[m].GetWidth(),tools[m].GetHeight(),false,false);
+    }
+>>>>>>> origin/master
 
     public void Update(float in_speed_x)
     {
@@ -114,8 +127,11 @@ public class Battlefield implements ProtoLevel {
             character[i].SetSpeed(speed_x);
         }
         distance+=speed_x*dt*scale_width;
+<<<<<<< HEAD
         increment=-.5f*dt;
 
+=======
+>>>>>>> origin/master
 
     }
 
