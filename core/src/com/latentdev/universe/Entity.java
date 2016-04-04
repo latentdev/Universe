@@ -10,6 +10,7 @@ public class Entity {
     private float rotation;
     private int width;
     private int height;
+    private float scale;
     Texture tex;
     BBox bbox;
 
@@ -22,6 +23,7 @@ public class Entity {
         width = tex.getWidth();
         height = tex.getHeight();
         bbox = new BBox(x,y,(float)width,(float)height);
+        scale = 1;
 
     }
 
@@ -49,6 +51,7 @@ public class Entity {
     {
         return height;
     }
+    public float GetScale() {return scale; }
 
     public void SetX(float in_x)
     {
@@ -70,5 +73,7 @@ public class Entity {
         rotation=in_rotation;
         return rotation;
     }
+    public void SetScale(float in_scale){ scale = in_scale;}
+    public void AddScale(float new_scale){ scale+=new_scale; }
 
 }

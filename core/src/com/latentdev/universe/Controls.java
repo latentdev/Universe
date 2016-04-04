@@ -1,12 +1,13 @@
 package com.latentdev.universe;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
 /**
  * Created by laten on 1/22/2016.
  */
 public class Controls implements InputProcessor{
-    String touched = "false";
+    Boolean touched = false;
     int touch = 0;
 
     @Override
@@ -16,6 +17,7 @@ public class Controls implements InputProcessor{
 
     @Override
     public boolean keyUp (int keycode) {
+
         return false;
     }
 
@@ -31,7 +33,7 @@ public class Controls implements InputProcessor{
 
     @Override
     public boolean touchUp (int x, int y, int pointer, int button) {
-        touched = "true";
+        touched = true;
         touch++;
         return false;
     }

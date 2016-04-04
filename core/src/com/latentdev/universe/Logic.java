@@ -1,5 +1,7 @@
 package com.latentdev.universe;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -15,17 +17,32 @@ public class Logic {
     {
         level = new Battlefield(in_batch);
         controls = new Controls();
+        Gdx.input.setInputProcessor(controls);
         physics = new Physics(level);
-        //level.PlayMusic();
+        level.PlayMusic();
     }
 
     void Measure()
     {
 
     }
-
+    void Touch_Event()
+    {
+        if (controls.touched)
+        {
+            physics.Push(2000*level.scale_width,2000*level.scale_width);
+            controls.touched=false;
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.CENTER))
+            controls.touched=true;
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)||Gdx.input.isKeyPressed(Input.Keys.BACK))
+        {
+            Gdx.app.exit();
+        }
+    }
     public void Loop()
     {
+        Touch_Event();
         level.Update(physics.GetSpeed());
         level.DrawLevel();
         physics.physics();
