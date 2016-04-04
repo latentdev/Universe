@@ -36,8 +36,6 @@ public class Battlefield implements ProtoLevel {
 
         speed_x=0; //forward character movement
 
-        speed_x=3000;
-
         speed_y=0;
         //scale_width=(float)(Gdx.graphics.getWidth())/(float)2560;
         scale_height=(float)(Gdx.graphics.getHeight())/(float)1440;

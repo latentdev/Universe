@@ -11,11 +11,8 @@ public class DesktopLauncher {
 		config.title = "Universe";
 		config.height = 1440;
 		config.width = 2560;
-<<<<<<< HEAD
 		config.fullscreen = true;
-=======
 		//config.fullscreen = true;
->>>>>>> origin/master
 		new LwjglApplication(new Universe(), config);
 	}
 }
