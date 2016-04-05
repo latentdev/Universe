@@ -18,7 +18,7 @@ public class Universe extends ApplicationAdapter {
 	BitmapFont font;
 	GlyphLayout layout;
 	String Distance;
-	Boolean key;
+	//Boolean key;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -27,6 +27,7 @@ public class Universe extends ApplicationAdapter {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 40;
+		parameter.color = Color.ORANGE;
 		parameter.borderWidth=3;
 		parameter.borderColor=Color.GRAY;
 		font = generator.generateFont(parameter);//new BitmapFont();
@@ -45,10 +46,12 @@ public class Universe extends ApplicationAdapter {
 		Distance = String.format("%.2f",logic.level.distance/(256*logic.level.scale_width)) + " meters";
 		layout.setText(font, Distance);
 		logic.Loop();
-		key=Gdx.input.isKeyPressed(Input.Keys.CENTER);
+		//key=Gdx.input.isKeyPressed(Input.Keys.CENTER);
 		font.draw(batch, String.format("%.0f", 1 / logic.level.dt) + " fps", 10, Gdx.graphics.getHeight() - 10);
 		font.draw(batch, String.format("%.2f",logic.level.distance/(256*logic.level.scale_width)) + " meters", Gdx.graphics.getWidth()-layout.width-10, Gdx.graphics.getHeight() - 10);
-		font.draw(batch, "scale: "+ logic.level.tools[0].GetScale(), 10, Gdx.graphics.getHeight() - 80);
+		font.draw(batch, "scale: "+ logic.level.increment_result, 10, Gdx.graphics.getHeight() - 80);
+		font.draw(batch, "vector_rotation: "+ logic.level.vector_rotation_result, 10, Gdx.graphics.getHeight() - 160);
+		font.draw(batch, "scale: "+ logic.level.tools[0].GetScale(), 10, Gdx.graphics.getHeight() - 240);
 		//font.draw(batch, (Gdx.graphics.getWidth()/(float)2560)+" width ratio",10,Gdx.graphics.getHeight()-160);
 		//font.draw(batch, Gdx.graphics.getHeight()/(float)1440+" height ratio",10,Gdx.graphics.getHeight()-240);
 		batch.end();

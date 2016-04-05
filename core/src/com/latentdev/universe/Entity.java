@@ -76,4 +76,6 @@ public class Entity {
     public void SetScale(float in_scale){ scale = in_scale;}
     public void AddScale(float new_scale){ scale+=new_scale; }
 
+    public void AddRotation(float new_rotation){ rotation+=new_rotation; }
+
 }

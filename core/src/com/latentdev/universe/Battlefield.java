@@ -27,6 +27,9 @@ public class Battlefield implements ProtoLevel {
 
     float scale;
     float increment;
+    float vector_rotation;
+    float increment_result;
+    float vector_rotation_result;
 
 
     public Battlefield(SpriteBatch in_batch)
@@ -41,9 +44,12 @@ public class Battlefield implements ProtoLevel {
         scale_height=(float)(Gdx.graphics.getHeight())/(float)1440;
         scale_width=scale_height;
         scale=1;
+        vector_rotation=0f;
 
         distance=0;
         char_rotation=0;
+        increment=-1.2f;
+        vector_rotation=-120f;
 
         player = new Entity[2];
         player[0] = new Entity(400*scale_width,400*scale_height,0,0,"steven-256.png");
@@ -66,9 +72,9 @@ public class Battlefield implements ProtoLevel {
         level[6]= new Entity(0,0,0,speed_x*2,"Foreground.png");
 
         tools= new Entity[3];
-        tools[0]= new Entity(0,0,0,0,"arc_fill.png");
+        tools[0]= new Entity(20,20,0,0,"arc_fill.png");
         tools[1]= new Entity(0,0,0,0,"arc_outline.png");
-        tools[2]= new Entity(0,0,0,0,"vector.png");
+        tools[2]= new Entity(20,20,0,0,"vector.png");
 
         Theme = Gdx.audio.newMusic(Gdx.files.internal("Music/gems-piano.ogg"));
         Theme.setLooping(true);
@@ -102,16 +108,13 @@ public class Battlefield implements ProtoLevel {
         }
 
         Animate_Tools();
-
-
-        for (int m=0;m<3;m++)
-            batch.draw(tools[m].tex, tools[m].GetX(), tools[m].GetY(),0,0,tools[m].GetWidth(),tools[m].GetHeight(),scale_width,scale_height,tools[m].GetRotation(),0,0,tools[m].GetWidth(),tools[m].GetHeight(),false,false);
     }
 
 
 
     public void Update(float in_speed_x)
     {
+
         speed_x=in_speed_x;
         level[0].SetSpeed(speed_x*(float).25);
         level[1].SetSpeed(speed_x * (float) .5);
@@ -126,7 +129,8 @@ public class Battlefield implements ProtoLevel {
         }
         distance+=speed_x*dt*scale_width;
 
-        increment=-.5f*dt;
+        increment_result=increment*dt;
+        vector_rotation_result=vector_rotation*dt;
 
 
     }
@@ -134,14 +138,35 @@ public class Battlefield implements ProtoLevel {
     public void Animate_Tools()
     {
 
-        if (tools[0].GetScale() > 1f || tools[0].GetScale() < 0f) {
+        if (tools[0].GetScale() > 1f)  {
+            tools[0].SetScale(.96f);
             increment *= -1;
+
         }
-        tools[0].AddScale(increment);
+
+        if (tools[0].GetScale() <0f) {
+            tools[0].SetScale(.04f);
+            increment*=-1;
+
+        }
+
+        if (tools[2].GetRotation()>45f)
+        {
+            vector_rotation*=-1;
+            tools[2].SetRotation(40f);
+        }
+
+        if (tools[2].GetRotation()<-45f)
+        {
+            vector_rotation*=-1;
+            tools[2].SetRotation(-40f);
+        }
+        tools[0].AddScale(increment_result);
+        tools[2].AddRotation(vector_rotation_result);
 
         batch.draw(tools[0].tex, tools[0].GetX(), tools[0].GetY(),0,0,tools[0].GetWidth(),tools[0].GetHeight(),tools[0].GetScale()*scale_width,tools[0].GetScale()*scale_height,tools[0].GetRotation(),0,0,tools[0].GetWidth(),tools[0].GetHeight(),false,false);
-        for (int m=1;m<3;m++)
-            batch.draw(tools[m].tex, tools[m].GetX(), tools[m].GetY(),0,0,tools[m].GetWidth(),tools[m].GetHeight(),scale_width,scale_height,tools[m].GetRotation(),0,0,tools[m].GetWidth(),tools[m].GetHeight(),false,false);
+        batch.draw(tools[1].tex, tools[1].GetX(), tools[1].GetY(),0,0,tools[1].GetWidth(),tools[1].GetHeight(),scale_width,scale_height,tools[1].GetRotation(),0,0,tools[1].GetWidth(),tools[1].GetHeight(),false,false);
+        batch.draw(tools[2].tex, tools[2].GetX(), tools[2].GetY(),0,0,tools[2].GetWidth(),tools[2].GetHeight(),scale_width,scale_height,tools[2].GetRotation(),0,0,tools[2].GetWidth(),tools[2].GetHeight(),false,false);
 
     }
     public void PlayMusic()
