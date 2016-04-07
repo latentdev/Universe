@@ -5,6 +5,7 @@ package com.latentdev.universe;
  */
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -32,15 +33,12 @@ public class Battlefield implements ProtoLevel {
     float vector_rotation_result;
 
 
-    public Battlefield(SpriteBatch in_batch)
+    public Battlefield(SpriteBatch in_batch, AssetManager manager)
     {
         batch=in_batch;
         Hero= 3;
-
         speed_x=0; //forward character movement
-
         speed_y=0;
-        //scale_width=(float)(Gdx.graphics.getWidth())/(float)2560;
         scale_height=(float)(Gdx.graphics.getHeight())/(float)1440;
         scale_width=scale_height;
         scale=1;
@@ -52,31 +50,31 @@ public class Battlefield implements ProtoLevel {
         vector_rotation=-120f;
 
         player = new Entity[2];
-        player[0] = new Entity(400*scale_width,400*scale_height,0,0,"steven-256.png");
-        player[1] = new Entity(400*scale_width,400*scale_height,0,0,"bubble-256.png");
+        player[0] = new Entity(400*scale_width,400*scale_height,0,0,"steven-256.png", manager);
+        player[1] = new Entity(400*scale_width,400*scale_height,0,0,"bubble-256.png", manager);
         character = new Entity[8];
         int offset=0;
         for (int i=0; i<character.length; i++)
         {
-            character[i] = new Entity((0+(offset*scale_width)),400*scale_height-(128*scale_height),0,0,"steven-256.png");
+            character[i] = new Entity((0+(offset*scale_width)),400*scale_height-(128*scale_height),0,0,"steven-256.png", manager);
             offset+= character[i].GetWidth() +character[i].GetWidth()*2;
         }
 
         level= new Entity[7];
-        level[2]= new Entity(0,0,0,speed_x,"Battleground.png");
-        level[0]= new Entity(0,0,0,(float)(level[2].GetSpeed()*.25),"sky.png");
-        level[1]= new Entity(0,0,0,(float)(level[2].GetSpeed()*.5),"clouds.png");
-        level[3]= new Entity(3072*scale_width,0,0,(float)(level[2].GetSpeed()*1.5),"Hammer.png");
-        level[4]= new Entity(1024*scale_width,0,0,(float)(level[2].GetSpeed()*1.5),"Sword.png");
-        level[5]= new Entity(2048*scale_width,0,0,(float)(level[2].GetSpeed()*1.5),"hatchet.png");
-        level[6]= new Entity(0,0,0,speed_x*2,"Foreground.png");
+        level[2]= new Entity(0,0,0,speed_x,"Battleground.png", manager);
+        level[0]= new Entity(0,0,0,(float)(level[2].GetSpeed()*.25),"sky.png", manager);
+        level[1]= new Entity(0,0,0,(float)(level[2].GetSpeed()*.5),"clouds.png", manager);
+        level[3]= new Entity(3072*scale_width,0,0,(float)(level[2].GetSpeed()*1.5),"Hammer.png", manager);
+        level[4]= new Entity(1024*scale_width,0,0,(float)(level[2].GetSpeed()*1.5),"Sword.png", manager);
+        level[5]= new Entity(2048*scale_width,0,0,(float)(level[2].GetSpeed()*1.5),"hatchet.png", manager);
+        level[6]= new Entity(0,0,0,speed_x*2,"Foreground.png", manager);
 
         tools= new Entity[3];
-        tools[0]= new Entity(20,20,0,0,"arc_fill.png");
-        tools[1]= new Entity(0,0,0,0,"arc_outline.png");
-        tools[2]= new Entity(20,20,0,0,"vector.png");
+        tools[0]= new Entity(20,20,0,0,"arc_fill.png", manager);
+        tools[1]= new Entity(0,0,0,0,"arc_outline.png", manager);
+        tools[2]= new Entity(20,20,0,0,"vector.png", manager);
 
-        Theme = Gdx.audio.newMusic(Gdx.files.internal("Music/gems-piano.ogg"));
+        Theme = manager.get("Music/gems-piano.ogg", Music.class);
         Theme.setLooping(true);
     }
 
@@ -106,8 +104,10 @@ public class Battlefield implements ProtoLevel {
             }
 
         }
+        for (int i=0;i<3;i++) {
+            batch.draw(tools[i].tex, tools[i].GetX(), tools[i].GetY(), 0, 0, tools[i].GetWidth(), tools[i].GetHeight(), tools[i].GetScale() * scale_width, tools[i].GetScale() * scale_height, tools[i].GetRotation(), 0, 0, tools[i].GetWidth(), tools[i].GetHeight(), false, false);
+        }
 
-        Animate_Tools();
     }
 
 
@@ -131,6 +131,7 @@ public class Battlefield implements ProtoLevel {
 
         increment_result=increment*dt;
         vector_rotation_result=vector_rotation*dt;
+        Animate_Tools();
 
 
     }
@@ -163,12 +164,8 @@ public class Battlefield implements ProtoLevel {
         }
         tools[0].AddScale(increment_result);
         tools[2].AddRotation(vector_rotation_result);
-
-        batch.draw(tools[0].tex, tools[0].GetX(), tools[0].GetY(),0,0,tools[0].GetWidth(),tools[0].GetHeight(),tools[0].GetScale()*scale_width,tools[0].GetScale()*scale_height,tools[0].GetRotation(),0,0,tools[0].GetWidth(),tools[0].GetHeight(),false,false);
-        batch.draw(tools[1].tex, tools[1].GetX(), tools[1].GetY(),0,0,tools[1].GetWidth(),tools[1].GetHeight(),scale_width,scale_height,tools[1].GetRotation(),0,0,tools[1].GetWidth(),tools[1].GetHeight(),false,false);
-        batch.draw(tools[2].tex, tools[2].GetX(), tools[2].GetY(),0,0,tools[2].GetWidth(),tools[2].GetHeight(),scale_width,scale_height,tools[2].GetRotation(),0,0,tools[2].GetWidth(),tools[2].GetHeight(),false,false);
-
     }
+
     public void PlayMusic()
     {
         Theme.play();

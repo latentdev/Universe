@@ -2,6 +2,7 @@ package com.latentdev.universe;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -13,9 +14,9 @@ public class Logic {
     Controls controls;
     Physics physics;
 
-    public Logic(SpriteBatch in_batch)
+    public Logic(SpriteBatch in_batch, AssetManager manager)
     {
-        level = new Battlefield(in_batch);
+        level = new Battlefield(in_batch, manager);
         controls = new Controls();
         Gdx.input.setInputProcessor(controls);
         physics = new Physics(level);

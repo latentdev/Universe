@@ -1,4 +1,5 @@
 package com.latentdev.universe;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by laten on 1/7/2016.
@@ -13,12 +14,14 @@ public class Entity {
     private float scale;
     Texture tex;
     BBox bbox;
+    AssetManager manager;
 
-    public Entity(float in_x, float in_y, float in_rotation, float in_speed, String file) {
+    public Entity(float in_x, float in_y, float in_rotation, float in_speed, String file, AssetManager in_manager) {
         x = in_x;
         y = in_y;
+        manager=in_manager;
         rotation = in_rotation;
-        tex = new Texture(file);
+        tex = manager.get(file, Texture.class);
         speed = in_speed;
         width = tex.getWidth();
         height = tex.getHeight();
