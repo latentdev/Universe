@@ -20,7 +20,7 @@ public class Logic {
         controls = new Controls();
         Gdx.input.setInputProcessor(controls);
         physics = new Physics(level);
-        level.PlayMusic();
+       // level.PlayMusic();
     }
 
     void Measure()
@@ -47,6 +47,10 @@ public class Logic {
         level.Update(physics.GetSpeed());
         level.DrawLevel();
         physics.physics();
+    }
+    public void dispose()
+    {
+
     }
 
 }

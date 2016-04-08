@@ -94,6 +94,8 @@ public class Battlefield implements ProtoLevel {
                 {
                     batch.draw(character[m].tex, character[m].GetX(), character[m].GetY(), 0, 0, character[m].GetWidth(), character[m].GetHeight(),scale_width,scale_height, character[m].GetRotation(),0,0, character[m].GetWidth(), character[m].GetHeight(),false,false);
                     character[m].SetX(character[m].GetX()-character[m].GetSpeed()*dt);
+                    if(character[m].GetX()<0-character[m].GetWidth())
+                        character[m].SetX(Gdx.graphics.getWidth());
                 }
             }
             batch.draw(level[i].tex,level[i].GetX(),level[i].GetY(),0,0,level[i].GetWidth(),level[i].GetHeight(),scale_width,scale_height,level[i].GetRotation(),0,0,level[i].GetWidth(),level[i].GetHeight(),false,false);
