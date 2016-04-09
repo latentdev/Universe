@@ -30,6 +30,9 @@ public class Entity {
 
     }
 
+    public void dispose(){
+        tex.dispose();
+    }
     public float GetX() {
         return x;
     }

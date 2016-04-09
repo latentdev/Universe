@@ -114,7 +114,7 @@ public class Universe extends ApplicationAdapter {
         font.dispose();
         logic.dispose();
 	}
-    // pass in arrays of files to load into the passed in assetmanager.
+    // pass in arrays of files to load into the passed in AssetManager.
 	static void load(AssetManager in_manager,String [] in_texture,String [] in_music, String [] in_font)
 	{
 		if(in_texture!=null) {

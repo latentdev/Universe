@@ -56,6 +56,8 @@ public class Physics {
         }
     }
 
+    public void dispose(){}
+
     public float GetSpeed() {
         return speed;
     }

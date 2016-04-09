@@ -50,7 +50,9 @@ public class Logic {
     }
     public void dispose()
     {
-
+        level.dispose();
+        controls.dispose();
+        physics.dispose();
     }
 
 }

@@ -56,6 +56,7 @@ public class Controls implements InputProcessor{
     public boolean mouseMoved (int x,int y){
         return false;
     }
+    public void dispose(){}
 
     int set () {
         return touch;

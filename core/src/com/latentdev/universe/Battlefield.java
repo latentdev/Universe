@@ -167,7 +167,25 @@ public class Battlefield implements ProtoLevel {
         tools[0].AddScale(increment_result);
         tools[2].AddRotation(vector_rotation_result);
     }
-
+    public void dispose()
+    {
+        for (int i=0;i<player.length;i++)
+        {
+            player[i].dispose();
+        }
+        for (int i=0;i<character.length;i++)
+        {
+            character[i].dispose();
+        }
+        for (int i=0;i<level.length;i++)
+        {
+            level[i].dispose();
+        }
+        for (int i=0;i<tools.length;i++)
+        {
+            tools[i].dispose();
+        }
+    }
     public void PlayMusic()
     {
         Theme.play();
