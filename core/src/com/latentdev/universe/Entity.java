@@ -2,7 +2,7 @@ package com.latentdev.universe;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 /**
- * Created by laten on 1/7/2016.
+ * Created by latentdev on 1/7/2016.
  */
 public class Entity {
     private float x;

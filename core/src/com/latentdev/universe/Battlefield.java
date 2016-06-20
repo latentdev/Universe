@@ -1,7 +1,7 @@
 package com.latentdev.universe;
 
 /**
- * Created by laten on 1/7/2016.
+ * Created by latentdev on 1/7/2016.
  */
 
 import com.badlogic.gdx.Gdx;
@@ -18,6 +18,7 @@ public class Battlefield implements ProtoLevel {
     private int Hero;
     SpriteBatch batch;
     Music Theme;
+    float total_offset;
     float speed_x;
     float speed_y;
     float scale_width;
@@ -53,12 +54,15 @@ public class Battlefield implements ProtoLevel {
         player[0] = new Entity(400*scale_width,400*scale_height,0,0,"steven-256.png", manager);
         player[1] = new Entity(400*scale_width,400*scale_height,0,0,"bubble-256.png", manager);
         character = new Entity[8];
-        int offset=0;
+        float offset=0;
+        total_offset=0;
         for (int i=0; i<character.length; i++)
         {
             character[i] = new Entity((0+(offset*scale_width)),400*scale_height-(128*scale_height),0,0,"steven-256.png", manager);
+            if (i<character.length-1)
             offset+= character[i].GetWidth() +character[i].GetWidth()*2;
         }
+        total_offset = (offset+character[0].GetWidth()*2)*scale_width ;
 
         level= new Entity[7];
         level[2]= new Entity(0,0,0,speed_x,"Battleground.png", manager);
@@ -90,18 +94,19 @@ public class Battlefield implements ProtoLevel {
                     batch.draw(player[k].tex, player[k].GetX()-(player[k].GetWidth()/2), player[k].GetY()-(player[k].GetHeight()/2), player[k].GetWidth()/2, player[k].GetHeight()/2, player[k].GetWidth(), player[k].GetHeight(),scale_width,scale_height, player[k].SetRotation(player[k].GetRotation()-char_rotation),0,0, player[k].GetWidth(), player[k].GetHeight(),false,false);
                 }
 
+
                 for (int m=0;m<character.length;m++)
                 {
                     batch.draw(character[m].tex, character[m].GetX(), character[m].GetY(), 0, 0, character[m].GetWidth(), character[m].GetHeight(),scale_width,scale_height, character[m].GetRotation(),0,0, character[m].GetWidth(), character[m].GetHeight(),false,false);
                     character[m].SetX(character[m].GetX()-character[m].GetSpeed()*dt);
                     if(character[m].GetX()<0-character[m].GetWidth())
-                        character[m].SetX(Gdx.graphics.getWidth());
+                        character[m].SetX(total_offset);
                 }
             }
             batch.draw(level[i].tex,level[i].GetX(),level[i].GetY(),0,0,level[i].GetWidth(),level[i].GetHeight(),scale_width,scale_height,level[i].GetRotation(),0,0,level[i].GetWidth(),level[i].GetHeight(),false,false);
             batch.draw(level[i].tex, level[i].GetX() + (5120*scale_width), level[i].GetY(),0,0,level[i].GetWidth(),level[i].GetHeight(),scale_width,scale_height,level[i].GetRotation(),0,0,level[i].GetWidth(),level[i].GetHeight(),false,false);
             level[i].SetX(level[i].GetX()-level[i].GetSpeed()*dt);
-            if (level[i].GetX() < (-1*(5120*scale_width))) {
+            if (level[i].GetX() < (-5120*scale_width)) {
                 level[i].SetX(0);
             }
 

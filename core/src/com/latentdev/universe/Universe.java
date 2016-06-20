@@ -76,7 +76,7 @@ public class Universe extends ApplicationAdapter {
 			logic.Loop();
 			font.draw(batch, String.format("%.0f", 1 / logic.level.dt) + " fps", 10, Gdx.graphics.getHeight() - 10);
 			font.draw(batch, String.format("%.2f", logic.level.distance / (256 * logic.level.scale_width)) + " meters", Gdx.graphics.getWidth() - layout.width - 10, Gdx.graphics.getHeight() - 10);
-			//font.draw(batch, "scale: " + logic.level.increment_result, 10, Gdx.graphics.getHeight() - 80);
+			font.draw(batch, "Resolution: " + Gdx.graphics.getWidth() + "x" + Gdx.graphics.getHeight(), 10, Gdx.graphics.getHeight() - 80);
 			//font.draw(batch, "vector_rotation: " + logic.level.vector_rotation_result, 10, Gdx.graphics.getHeight() - 160);
 			//font.draw(batch, "scale: " + logic.level.tools[0].GetScale(), 10, Gdx.graphics.getHeight() - 240);
 			/*batch.draw(manager.get("sky.png",Texture.class),0,0);

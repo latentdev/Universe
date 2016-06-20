@@ -1,7 +1,7 @@
 package com.latentdev.universe;
 
 /**
- * Created by laten on 1/21/2016.
+ * Created by latentdev on 1/21/2016.
  */
 public interface ProtoLevel {
    // void BuildLevel();
